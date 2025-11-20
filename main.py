@@ -32,11 +32,11 @@ pygame.display.set_caption("Ndogs.51914")
 fond = pygame.display.set_mode((1000, 500))
 
 
+
 joueur = Joueur()
 game = Game()
 
 running = True
-
 while running :
 
     fond.blit(game.joueur.image,game.joueur.rect)

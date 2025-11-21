@@ -6,7 +6,8 @@ class Game:
          self.joueur = Joueur()
          self.touche = {}
 
-
+couleur = (100,250,90)
+rayon = 20
 class Joueur(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -16,6 +17,7 @@ class Joueur(pygame.sprite.Sprite):
         self.poison = 1
         self.deplacement = 5
         self.image = pygame.image.load("dog.png") # --> mettre l'image du chien 
+        self.pygame.draw.rect(fond,couleur,x,y,rayon)
         self.rect = self.image.get_rect()
         self.rect.x = 400
         self.rect.y = 10

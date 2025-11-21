@@ -1,13 +1,13 @@
 import pygame
 pygame.init()
 
+
 class Game:
      def __init__(self):
          self.joueur = Joueur()
          self.touche = {}
 
-couleur = (100,250,90)
-rayon = 20
+
 class Joueur(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -16,11 +16,10 @@ class Joueur(pygame.sprite.Sprite):
         self.max_vie = 20
         self.poison = 1
         self.deplacement = 5
-        self.image = pygame.image.load("dog.png") # --> mettre l'image du chien 
-        self.pygame.draw.rect(fond,couleur,x,y,rayon)
+        self.image = pygame.image.load("dog.png") # --> mettre l'image du chien
         self.rect = self.image.get_rect()
-        self.rect.x = 400
-        self.rect.y = 10
+        self.rect.x = -20
+        self.rect.y = 300
 
     def mouvements_droite(self):
         self.rect.x += self.deplacement
@@ -29,9 +28,19 @@ class Joueur(pygame.sprite.Sprite):
         self.rect.x -= self.deplacement
 
 
+class mechant :
+    def __init__(self) :
+         self.vie = 10
+         self.max_vie = 10
+         self.perte_vie = 1
+         self.image = pygame.image.load("caca.png") # --> mettre l'image du caca
+         self.rect = self.image.get_rect()
+
+
+
 #fenetre jeu
 pygame.display.set_caption("Ndogs.51914")
-fond = pygame.display.set_mode((1000, 500))
+fond = pygame.display.set_mode((1500, 800))
 
 
 
@@ -50,13 +59,3 @@ while running :
 
 
     pygame.display.flip()
-
-    for event in pygame.event.get() :
-        if event.type == pygame.QUIT :
-            running = False
-            pygame.quit()
-            print("Fermeture de jeu")
-        elif event.type == pygame.KEYDOWN :
-            game.touche[event.key] = True
-        elif event.type == pygame.KEYUP :
-            game.touche[event.key] = False

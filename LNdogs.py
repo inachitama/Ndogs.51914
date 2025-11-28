@@ -3,7 +3,7 @@ import pygame
 pygame.init()
 
 # Fenêtre 
-screen = pygame.display.set_mode((, ))
+screen = pygame.display.set_mode((1500, 800))
 pygame.display.set_caption("Entrer le nom du personnage - Style Undertale")
 
 #  Police pixel Undertale-like 

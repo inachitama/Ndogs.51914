@@ -9,10 +9,7 @@ class Game:
          self.touche = {}
           self.spam_mechant()
 
-     def collision(self,sprite; group) :
-          return pygame.sprite.spritecollide(sprite,group,False,pygame.sprite.collide_mask))
 
-     
      def spaw_mechant(self) :
           mechant = Mechant()
           self.all_mechant.add(mechant)
@@ -32,7 +29,6 @@ class Joueur(pygame.sprite.Sprite):
         self.rect.y = 300
 
     def mouvements_droite(self):
-        if not self.game.collision(self,self.game.all_mechant)
         self.rect.x += self.deplacement
 
     def mouvements_gauche(self):

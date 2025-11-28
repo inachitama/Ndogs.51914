@@ -8,8 +8,6 @@ class Game:
           self.all_mechant = pygame.sprite.Group()
          self.touche = {}
           self.spam_mechant()
-
-
      def spaw_mechant(self) :
           mechant = Mechant()
           self.all_mechant.add(mechant)

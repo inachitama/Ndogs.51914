@@ -4,7 +4,7 @@ pygame.init()
 
 class Game:
      def __init__(self):
-         self.joueur = Joueur()
+         self.joueur = Joueur(self)
           self.all_mechant = pygame.sprite.Group()
          self.touche = {}
           self.spam_mechant()
@@ -32,6 +32,7 @@ class Joueur(pygame.sprite.Sprite):
         self.rect.y = 300
 
     def mouvements_droite(self):
+        if not self.game.collision(self,self.game.all_mechant)
         self.rect.x += self.deplacement
 
     def mouvements_gauche(self):

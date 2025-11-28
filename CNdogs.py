@@ -5,8 +5,17 @@ pygame.init()
 class Game:
      def __init__(self):
          self.joueur = Joueur()
+          self.all_mechant = pygame.sprite.Group()
          self.touche = {}
-          self.mechant = Mechant{}
+          self.spam_mechant()
+
+     def collision(self,sprite; group) :
+          return pygame.sprite.spritecollide(sprite,group,False,pygame.sprite.collide_mask))
+
+     
+     def spaw_mechant(self) :
+          mechant = Mechant()
+          self.all_mechant.add(mechant)
 
 
 class Joueur(pygame.sprite.Sprite):
@@ -29,13 +38,17 @@ class Joueur(pygame.sprite.Sprite):
         self.rect.x -= self.deplacement
 
 
-class Mechant :
+class Mechant(pygame.sprite.Sprite) :
     def __init__(self) :
+         super().__init__()
          self.vie = 10
          self.max_vie = 10
          self.perte_vie = 1
          self.image = pygame.image.load("caca.png") # --> mettre l'image du caca
          self.rect = self.image.get_rect()
+         self.rect.x = 1000
+         self.rect.y = 300
+         
 
 
 

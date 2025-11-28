@@ -2,49 +2,51 @@
 import pygame
 pygame.init()
 
-# cree Fenêtre
-screen = pygame.display.set_mode((1500, 800))
-pygame.display.set_caption("Entrer le nom du personnage")
+# Fenêtre 
+screen = pygame.display.set_mode((, ))
+pygame.display.set_caption("Entrer le nom du personnage - Style Undertale")
 
-# Police
-font = pygame.font.Font(None, 40)
+#  Police pixel Undertale-like 
+font = pygame.font.Font(None, 48)
 
-# Txt saisi (nom)
+#  Variables 
 player_name = ""
-active = True #if joueur tape
-
+active = True
 clock = pygame.time.Clock()
-
 running = True
-while running:
-    screen.fill((30, 30, 30)) #couleur principal jeu
 
-    for event in pygame.event.get(): #lit event jeu
+#  Boucle principale 
+while running:
+    screen.fill((0, 0, 0))  # fond noir
+
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        if active:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:  # Valider par Entrée
-                    print("Nom choisi :", player_name)
-                    active = False  #on n'écrit plus ensuite
-                elif event.key == pygame.K_BACKSPACE:  # Effacer
-                    player_name = player_name[:-1]
-                else:
-                    # Ajouter le caractère tapé
-                    player_name += event.unicode
+        if active and event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:   # Valider
+                print("Nom choisi :", player_name)
+                active = False
 
-    # Affichage
-    txt_surface = font.render("Nom : " + player_name, True, (255, 255, 255)) #font = objet police ecrit et render = tansforme txt -> image
-    screen.blit(txt_surface, (50, 180))
+            elif event.key == pygame.K_BACKSPACE:  # Effacer
+                player_name = player_name[:-1]
 
-    (y = screen_height - text_height -
-    
-    pygame.display.flip() #rafraichit ecran
-    clock.tick(30) #FPS
+            else:
+                player_name += event.unicode
 
-    
+    #  AFFICHAGE 
 
+    # Cadre titre
+    title_surf = font.render("ENTREZ LE NOM DU PERSONNAGE", True, (255, 255, 255))
+    pygame.draw.rect(screen, (255, 255, 255), (80, 50, 640, 70), 3)
+    screen.blit(title_surf, (100, 60))
 
+    # Cadre du nom
+    name_surf = font.render("Nom : " + player_name, True, (255, 255, 255))
+    pygame.draw.rect(screen, (255, 255, 255), (150, 400, 500, 70), 3)
+    screen.blit(name_surf, (170, 415))
+
+    pygame.display.flip()
+    clock.tick(30)
 
 pygame.quit()

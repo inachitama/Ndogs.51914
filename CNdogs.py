@@ -6,6 +6,7 @@ class Game:
      def __init__(self):
          self.joueur = Joueur()
          self.touche = {}
+          self.mechant = Mechant{}
 
 
 class Joueur(pygame.sprite.Sprite):
@@ -28,7 +29,7 @@ class Joueur(pygame.sprite.Sprite):
         self.rect.x -= self.deplacement
 
 
-class mechant :
+class Mechant :
     def __init__(self) :
          self.vie = 10
          self.max_vie = 10
@@ -45,7 +46,10 @@ fond = pygame.display.set_mode((1500, 800))
 
 
 joueur = Joueur()
+mechant = Mechant{}
 game = Game()
+
+
 
 running = True
 while running :

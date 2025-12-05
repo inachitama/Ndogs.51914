@@ -6,6 +6,12 @@ pygame.init()
 screen = pygame.display.set_mode((1500, 800))
 pygame.display.set_caption("Entrer le nom du personnage - Style Undertale")
 
+#PAGE ACCEUIL
+
+
+
+#ENTREE NOM
+
 #  Police pixel Undertale-like 
 font = pygame.font.Font(None, 48)
 

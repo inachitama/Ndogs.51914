@@ -7,6 +7,15 @@ pygame.display.set_caption("Entrer le nom du personnage - Style Undertale")
 
 #PAGE ACCEUIL
 
+def play():
+    pygame.display.set_caption('Play')
+    while True:
+        Play_souri = pygame.mouse.get_pos()
+        
+        screen.fill("Black")
+        
+        Play_txt = get_font(45).render()
+
 
 
 #ENTREE NOM

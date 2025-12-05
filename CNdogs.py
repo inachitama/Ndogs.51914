@@ -50,8 +50,6 @@ class Mechant(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 1000
         self.rect.y = 300
-    def forward(self):
-        pass
 
     def barre_sante(self,surface):
         bar_color = (45, 212, 21)

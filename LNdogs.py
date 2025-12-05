@@ -43,8 +43,8 @@ while running:
 
     # Cadre du nom
     name_surf = font.render("Nom : " + player_name, True, (255, 255, 255))
-    pygame.draw.rect(screen, (255, 255, 255), (150, 400, 500, 70), 3)
-    screen.blit(name_surf, (170, 415))
+    pygame.draw.rect(screen, (255, 255, 255), (80, 700, 1340, 70), 3)
+    screen.blit(name_surf, (100, 720))
 
     pygame.display.flip()
     clock.tick(30)

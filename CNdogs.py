@@ -26,6 +26,7 @@ class Joueur(pygame.sprite.Sprite):
         self.poison = 1
         self.deplacement = 5
         self.image = pygame.image.load("dog.png")  # --> mettre l'image du chien
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.rect.x = 50
         self.rect.y = 300
@@ -45,6 +46,7 @@ class Mechant(pygame.sprite.Sprite):
         self.max_vie = 10
         self.perte_vie = 1
         self.image = pygame.image.load("caca.png")  # --> mettre l'image du caca
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.rect.x = 1000
         self.rect.y = 300

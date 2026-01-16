@@ -7,7 +7,6 @@ pygame.init()
 WIDTH, HEIGHT = 1500, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("menu -> nom")
-
 clock = pygame.time.Clock()
 
 #  COULEURS 
@@ -16,22 +15,21 @@ BLACK = (0, 0, 0)
 GRAY = (90, 90, 90)
 LIGHT_GRAY = (140, 140, 140)
 
-#  POLICES
+#  POLICES 
 title_font = pygame.font.Font(None, 72)
 button_font = pygame.font.Font(None, 48)
 small_font = pygame.font.Font(None, 28)
 
+# ÉTAT
+state = "menu"
 
-#  ÉTATS 
-state = "menu"   
-
-#  VARIABLES NOM 
+# NOM 
 player_name = ""
 MAX_CHARS = 12
 cursor_visible = True
 cursor_timer = 0
 
-#  BOUTONS 
+# ================= BOUTONS =================
 class Button:
     def __init__(self, text, x, y):
         self.text = text
@@ -46,43 +44,63 @@ class Button:
         screen.blit(txt, txt.get_rect(center=self.rect.center))
 
     def clicked(self, event):
-        return event.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            return self.rect.collidepoint(event.pos)
+        return False
 
+
+# MENU
 play_btn = Button("PLAY", 600, 300)
 options_btn = Button("OPTIONS", 600, 390)
 quit_btn = Button("QUIT", 600, 480)
 
-#  MENU 
+# OPTIONS
+Skin_btn = Button("Skin", 600, 350)
+Easteregg_btn = Button("Easter Egg", 600, 450)
+MENU_btn = Button("MENU", 600, 550)
+
+# ================= DESSINS =================
 def draw_menu():
     screen.fill((35, 0, 50))
-
     title = title_font.render("MAIN MENU", True, (220, 180, 80))
-    screen.blit(title, title.get_rect(center=(WIDTH//2, 150)))
-
+    screen.blit(title, title.get_rect(center=(WIDTH // 2, 150)))
     play_btn.draw()
     options_btn.draw()
     quit_btn.draw()
 
-#  ÉCRAN NOM 
+
+def draw_options():
+    screen.fill((35, 0, 50))
+    title = title_font.render("OPTIONS", True, WHITE)
+    screen.blit(title, title.get_rect(center=(WIDTH // 2, 150)))
+    Skin_btn.draw()
+    Easteregg_btn.draw()
+    MENU_btn.draw()
+
+#NOM JOUEUR
 def draw_name_screen():
     global cursor_visible, cursor_timer
 
     screen.fill(BLACK)
 
-    # Curseur clignotant
     cursor_timer += clock.get_time()
     if cursor_timer > 500:
         cursor_visible = not cursor_visible
         cursor_timer = 0
+        
+    player_img = pygame.image.load("chien.jpg").convert_alpha()  # .convert_alpha() pour la transparence
+    player_img = pygame.transform.scale(player_img, (470, 392))
+        
+     # Afficher image au centre
+    img_rect = player_img.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    screen.blit(player_img, img_rect)
+    
 
-    # Cadre titre
     title_rect = pygame.Rect(430, 100, 640, 70)
     pygame.draw.rect(screen, WHITE, title_rect, 3)
-
     title = button_font.render("ENTREZ LE NOM DU PERSONNAGE", True, WHITE)
     screen.blit(title, title.get_rect(center=title_rect.center))
 
-    # Cadre nom
     name_rect = pygame.Rect(80, 650, 1340, 70)
     pygame.draw.rect(screen, WHITE, name_rect, 3)
 
@@ -90,10 +108,8 @@ def draw_name_screen():
     name_surf = button_font.render("Nom : " + display_name, True, WHITE)
     screen.blit(name_surf, (name_rect.x + 20, name_rect.y + 18))
 
-    help_text = small_font.render("ENTRÉE pour valider  |  ESC pour revenir", True, (180, 180, 180))
-    screen.blit(help_text, help_text.get_rect(center=(WIDTH//2, 740)))
 
-#  BOUCLE PRINCIPALE 
+# ================= BOUCLE PRINCIPALE =================
 running = True
 while running:
     for event in pygame.event.get():
@@ -106,10 +122,21 @@ while running:
                 state = "name"
                 player_name = ""
 
-            if quit_btn.clicked(event):
+            elif options_btn.clicked(event):
+                state = "options"
+
+            elif quit_btn.clicked(event):
                 running = False
 
-        #  ÉCRAN NOM 
+        # OPTIONS 
+        elif state == "options":
+            if MENU_btn.clicked(event):
+                state = "menu"
+
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                state = "menu"
+
+        # NOM
         elif state == "name":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -117,7 +144,6 @@ while running:
 
                 elif event.key == pygame.K_RETURN:
                     print("Nom choisi :", player_name)
-                    # le jeu
                     state = "menu"
 
                 elif event.key == pygame.K_BACKSPACE:
@@ -127,8 +153,11 @@ while running:
                     if len(player_name) < MAX_CHARS and event.unicode.isprintable():
                         player_name += event.unicode
 
+    # AFFICHAGE
     if state == "menu":
         draw_menu()
+    elif state == "options":
+        draw_options()
     elif state == "name":
         draw_name_screen()
 
@@ -136,11 +165,4 @@ while running:
     clock.tick(60)
 
 pygame.quit()
-
-
-    pygame.display.flip()
-    clock.tick(30)
-
-
-
-pygame.quit()
+sys.exit()

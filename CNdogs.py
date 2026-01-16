@@ -1,5 +1,5 @@
 import pygame
-
+import random
 pygame.init()
 
 
@@ -29,12 +29,12 @@ class Joueur(pygame.sprite.Sprite):
         self.vie = 100
         self.max_vie = 100
         self.attack = 10
-        self.deplacement = 4
-        self.image = pygame.image.load("dog.png")  # --> mettre l'image du chien
-        self.image = pygame.transform.scale(self.image, (300, 300))
+        self.deplacement = 2
+        self.image = pygame.image.load("chien.png")  # --> mettre l'image du chien
+        self.image = pygame.transform.scale(self.image, (200, 200))
         self.rect = self.image.get_rect()
         self.rect.x = 50
-        self.rect.y = 300
+        self.rect.y = 465
 
         self.last_degat_time = 0
         self.degat_cooldown = 1000
@@ -65,10 +65,11 @@ class Mechant(pygame.sprite.Sprite):
         self.max_vie = 100
         self.attack = 5
         self.image = pygame.image.load("caca.png")  # --> mettre l'image du caca
-        self.image = pygame.transform.scale(self.image, (100, 100))
+        self.image = pygame.transform.scale(self.image, (150, 150))
         self.rect = self.image.get_rect()
-        self.rect.x = 1050
-        self.rect.y = 500
+        #self.rect.center = (random.randint(0, 1050), random.randint(600,600))
+        self.rect.x = random.randint(0,1050)
+        self.rect.y = random.randint(650,650)
 
     def degats(self,montant):
         self.vie -= montant
@@ -86,15 +87,16 @@ class Mechant(pygame.sprite.Sprite):
         pygame.draw.rect(surface, (240, 14, 14), [self.rect.x + 10, self.rect.y - 20, self.max_vie, 10])
         pygame.draw.rect(surface, (45, 212, 21), [self.rect.x + 10, self.rect.y - 20, self.vie, 10])
 
+
 # fenetre jeu
 pygame.display.set_caption("Ndogs.51914")
 fond = pygame.display.set_mode((1500, 800))
 game = Game()
 
-
+#boucle de jeu 
 running = True
 while running:
-    fond.fill((255,255,255))
+    fond.fill((0,0,0))
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -119,7 +121,9 @@ while running:
             if game.touche.get(pygame.K_SPACE):
                 mechant.vie -= 1
                 if mechant.vie <= 0:
-                    game.all_mechant.remove(mechant)
+                    #game.all_mechant.remove(mechant)
+                    #for i in range(random.randint(0,2)) :
+                        #game.all_mechant.add(mechant)
             elif mechant.vie < mechant.max_vie:
                 mechant.vie += 1
             else :
@@ -133,3 +137,6 @@ while running:
         game.joueur.mouvements_gauche()
 
     pygame.display.flip()
+    
+    
+pygame.quit()

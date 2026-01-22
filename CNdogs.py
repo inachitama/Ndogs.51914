@@ -69,7 +69,7 @@ class Mechant(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         #self.rect.center = (random.randint(0, 1050), random.randint(600,600))
         self.rect.x = random.randint(0,1050)
-        self.rect.y = random.randint(650,650)
+        self.rect.y = random.randint(520,520)
 
     def degats(self,montant):
         self.vie -= montant

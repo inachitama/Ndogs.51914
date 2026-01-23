@@ -69,8 +69,8 @@ class Mechant(pygame.sprite.Sprite):
         self.image = pygame.image.load("caca.png")  # --> mettre l'image du caca
         self.image = pygame.transform.scale(self.image, (150, 150))
         self.rect = self.image.get_rect()
-        self.rect.x = 500
-        self.rect.y = 520
+        self.rect.x = random.randint(500,800)
+        self.rect.y = random.randint(520,520)
 
     def degats(self,montant):
         self.vie -= montant
@@ -138,12 +138,16 @@ while running:
             else :
                 game.joueur.degat(5)
 
+
     # touche fleche
     if game.touche.get(pygame.K_RIGHT):
         game.joueur.mouvements_droite()
     if game.touche.get(pygame.K_LEFT):
         game.joueur.mouvements_gauche()
 
+
+
     pygame.display.flip()
+    
     
 pygame.quit()

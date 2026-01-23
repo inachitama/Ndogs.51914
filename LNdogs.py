@@ -254,9 +254,10 @@ MENU_btn = Button("MENU", 600, 550)
 
 # OPTIONS - SKIN !!!!!!! (A MODIF !!!!)
 
-R_btn = Button("Roux", 600, 350)
-M_btn = Button("Marron", 600, 450)
-Be_btn = Button ("Beige", 600, 550)
+R_btn = Button("Roux", 300, 550)
+M_btn = Button("Marron", 600, 550)
+Be_btn = Button ("Beige", 900, 550)
+Menu_btn = Button ("MENU", 600, 650)
 
 # ================= DESSINS =================
 
@@ -280,10 +281,11 @@ def draw_options():
 def draw_skin():
     screen.fill((35, 0, 50))
     title = title_font.render("Skin", True, (220, 180, 80))
-    screen.blit(title, title.get_rect(center=(WITH // 2, 150)))
+    screen.blit(title, title.get_rect(center=(WIDTH // 2, 150)))
     R_btn.draw()
     M_btn.draw()
     Be_btn.draw()
+    Menu_btn.draw()
 
 #NOM JOUEUR
 def draw_name_screen():
@@ -333,8 +335,6 @@ while running:
             elif options_btn.clicked(event):
                 state = "options"
                 
-            elif options_btn.clicked(event):
-                state = "options"
 
             elif quit_btn.clicked(event):
                 running = False
@@ -343,15 +343,18 @@ while running:
         elif state == "options":
             if MENU_btn.clicked(event):
                 state = "menu"
+                
+            if Skin_btn.clicked(event):
+                state = "Skin"
 
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 state = "menu"
 
-        # !!!!!!!  OPTIONS - SKIN
+        # OPTIONS - SKIN
         elif state == "options":
             if Skin_btn.clicked(event):
                 state = "Skin"
-
+                
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 state = "options"
                 

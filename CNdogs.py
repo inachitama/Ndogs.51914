@@ -9,6 +9,8 @@ class Game:
         self.joueur = Joueur(self)
         self.all_joueur.add(self.joueur)
         self.all_mechant = pygame.sprite.Group()
+        self.kill = 0
+        self.max_kill = 5
         self.touche = {}
         self.spaw_mechant()
         self.espace_appuye = False
@@ -67,12 +69,19 @@ class Mechant(pygame.sprite.Sprite):
         self.image = pygame.image.load("caca.png")  # --> mettre l'image du caca
         self.image = pygame.transform.scale(self.image, (150, 150))
         self.rect = self.image.get_rect()
-        self.rect.x = 500)
+        self.rect.x = 500
         self.rect.y = 520
+
     def degats(self,montant):
         self.vie -= montant
         if self.vie <= 0:
-            self.game.all_mechant.remove(self)
+            self.game.kill += 1
+            self.kill()
+            if self.game.kill < self.game.max_kill :
+                self.game.spaw_mechant()
+    def mourir(self) :
+        self.game.all_mechant.remove(self)
+            
 
     def forward(self):
         if self.game.joueur.rect.colliderect(self.rect) :
@@ -99,6 +108,7 @@ while running:
     texte = font.render(f"KILL : {game.kill} /5" , True , (255,255,255))
     fond.blit(texte,(20,20))
     
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -108,6 +118,7 @@ while running:
                 game.espace_appuye = True
         if event.type == pygame.KEYUP:
             game.touche[event.key] = False
+ 
 
     fond.blit(game.joueur.image, game.joueur.rect)
     game.all_mechant.draw(fond)
@@ -120,14 +131,12 @@ while running:
         if game.joueur.rect.colliderect(mechant.rect):
 
             if game.touche.get(pygame.K_SPACE):
-                mechant.vie -= 1
+                mechant.degats(1)
                 if mechant.vie <= 0:
-                    game.all_mechant.remove(mechant)    
-            elif mechant.vie < mechant.max_vie:
-                mechant.vie += 1
+                    mechant.vie < mechant.max_vie
+                    mechant.degats(5)
             else :
                 game.joueur.degat(5)
-
 
     # touche fleche
     if game.touche.get(pygame.K_RIGHT):
@@ -136,6 +145,5 @@ while running:
         game.joueur.mouvements_gauche()
 
     pygame.display.flip()
-    
     
 pygame.quit()

@@ -67,10 +67,8 @@ class Mechant(pygame.sprite.Sprite):
         self.image = pygame.image.load("caca.png")  # --> mettre l'image du caca
         self.image = pygame.transform.scale(self.image, (150, 150))
         self.rect = self.image.get_rect()
-        #self.rect.center = (random.randint(0, 1050), random.randint(600,600))
-        self.rect.x = random.randint(0,1050)
-        self.rect.y = random.randint(520,520)
-
+        self.rect.x = 500)
+        self.rect.y = 520
     def degats(self,montant):
         self.vie -= montant
         if self.vie <= 0:
@@ -92,11 +90,14 @@ class Mechant(pygame.sprite.Sprite):
 pygame.display.set_caption("Ndogs.51914")
 fond = pygame.display.set_mode((1500, 800))
 game = Game()
+font = pygame.font.SysFont("arial",30)
 
 #boucle de jeu 
 running = True
 while running:
     fond.fill((0,0,0))
+    texte = font.render(f"KILL : {game.kill} /5" , True , (255,255,255))
+    fond.blit(texte,(20,20))
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -121,9 +122,7 @@ while running:
             if game.touche.get(pygame.K_SPACE):
                 mechant.vie -= 1
                 if mechant.vie <= 0:
-                    #game.all_mechant.remove(mechant)
-                    #for i in range(random.randint(0,2)) :
-                        #game.all_mechant.add(mechant)
+                    game.all_mechant.remove(mechant)    
             elif mechant.vie < mechant.max_vie:
                 mechant.vie += 1
             else :

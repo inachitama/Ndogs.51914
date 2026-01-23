@@ -1,3 +1,37 @@
+#============== DISPLAY TEXT WHEN COLISION ==============
+import pygame
+
+pygame.init()
+pygame.display.set_caption("Ndogs.51914")
+fond = pygame.display.set_mode((1500, 800))
+
+text_font = pygame.font.Font(None, 28)
+
+def draw_text(text, font, col, text_x, text_y):
+    img = font.render(text, True, col)
+    fond.blit(img, (text_x, text_y))
+
+run = True
+while run:
+    
+    fond.fill((0, 0, 0))
+    draw_text("Cliquez sur la touche 'Espace' pour vaincre le caca.", text_font, (255, 255, 255), 500, 200)
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+    
+    pygame.display.flip()
+
+pygame.quit()
+
+
+
+
+
+
+
+
 import pygame
 pygame.init()
 #fenetre jeu

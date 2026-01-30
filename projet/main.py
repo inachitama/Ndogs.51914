@@ -33,7 +33,7 @@ class Joueur(pygame.sprite.Sprite):
         self.attack = 10
         self.deplacement = 2
         self.image = pygame.image.load("chien.png")  # --> mettre l'image du chien
-        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.image = pygame.transform.scale(self.image, (210, 210))
         self.rect = self.image.get_rect()
         self.rect.x = 50
         self.rect.y = 465
@@ -67,10 +67,10 @@ class Mechant(pygame.sprite.Sprite):
         self.max_vie = 100
         self.attack = 5
         self.image = pygame.image.load("caca.png")  # --> mettre l'image du caca
-        self.image = pygame.transform.scale(self.image, (150, 150))
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(500,800)
-        self.rect.y = random.randint(520,520)
+        self.rect.y = random.randint(570,570)
 
     def degats(self,montant):
         self.vie -= montant
@@ -176,3 +176,4 @@ def lancer_jeu():
 
 
     pygame.quit()
+

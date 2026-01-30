@@ -95,6 +95,13 @@ class Mechant(pygame.sprite.Sprite):
         pygame.draw.rect(surface, (45, 212, 21), [self.rect.x + 10, self.rect.y - 20, self.vie, 10])
 
 
+# ========== FONCTION POUR AFFICHER TEXTE ==========
+def draw_text(text, font, col, text_x, text_y):
+    img = font.render(text, True, col)
+    fond.blit(img, (text_x, text_y))
+# ========== POLICE ET TAILLE TEXTE ==========        
+        text_font = pygame.font.Font(None, 28)
+
 
  #BOUCLE DE JEU
 def lancer_jeu():
@@ -110,6 +117,11 @@ def lancer_jeu():
     while running:
         fond.fill((0, 0, 0))
         texte = font.render(f"KILL : {game.kill} /5", True, (255, 255, 255))
+
+        # ========== AFFICHE TEXTES ==========
+        draw_text("Click on the 'Left' arrow to move to the left.", text_font, (255, 255, 255), 10, 750)
+        draw_text("Click on the 'Right' arrow to move to the right.", text_font, (255, 255, 255), 1065, 750)
+        
         fond.blit(texte, (20, 20))
 
         for event in pygame.event.get():
@@ -131,6 +143,10 @@ def lancer_jeu():
             for mechant in game.all_mechant:
                 mechant.barre_vie(fond)
                 if game.joueur.rect.colliderect(mechant.rect):
+
+# ========== AFFICHE TEXTE QUAND COLISION ==========
+                    draw_text("Click on the 'Space' bar to defeat the poop.", text_font, (255, 255, 255), 500, 200)
+                    
                     if game.touche.get(pygame.K_SPACE):
                         mechant.degats(1)
                     else:
@@ -157,5 +173,6 @@ def lancer_jeu():
                 running = False
 
         pygame.display.flip()
+
 
     pygame.quit()

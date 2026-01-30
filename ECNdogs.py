@@ -104,11 +104,17 @@ pygame.display.set_caption("Ndogs.51914")
 fond = pygame.display.set_mode((1500, 800))
 game = Game()
 font = pygame.font.SysFont("arial",30)
+# ========== METTRE UN FOND ==========
+image = pygame.image.load("fond_ecran_1.png")
+def background(image):
+    size = pygame.transform.scale(image, (1500, 800))
+    fond.blit(size, (0, 0))
 
 #boucle de jeu
 running = True
 while running:
     fond.fill((0,0,0))
+    background(image)
     texte = font.render(f"KILL : {game.kill} /5" , True , (255,255,255))
     fond.blit(texte,(20,20))
 

@@ -17,6 +17,10 @@ class Game:
 
     def spaw_mechant(self):
          mechant = Mechant(self)
+         
+         while abs(mechant.rect.x - self.joueur.rect.x) < 300 :
+             mechant.rect.x = random.randint(600,1200)
+         mechant.rect.y = 570
          self.all_mechant.add(mechant)
 
     def collision(self,sprite,group):
@@ -32,12 +36,14 @@ class Joueur(pygame.sprite.Sprite):
         self.max_vie = 100
         self.attack = 10
         self.deplacement = 2
-        self.image = pygame.image.load("chien.png")  # --> mettre l'image du chien
-        self.image = pygame.transform.scale(self.image, (210, 210))
+        self.image_d = pygame.image.load('chien_d.png')
+        self.image_d = pygame.transform.scale(self.image_d,(210,210))
+        self.image_g = pygame.image.load('chien_g.jpg')
+        self.image_g =pygame.transform.scale(self.image_g,(210,210))
+        self.image = self.image_d
         self.rect = self.image.get_rect()
         self.rect.x = 50
         self.rect.y = 465
-
         self.last_degat_time = 0
         self.degat_cooldown = 1000
 
@@ -54,9 +60,31 @@ class Joueur(pygame.sprite.Sprite):
     def mouvements_droite(self):
         if not self.game.collision(self,self.game.all_mechant):
               self.rect.x += self.deplacement
+              self.image = self.image_d
 
     def mouvements_gauche(self):
             self.rect.x -= self.deplacement
+            self.image = self.image_g
+
+    def degat(self,montant):
+        actuel = pygame.time.get_ticks()
+        if actuel - self.fin_degat >= 1000 :
+            self.vie -= montant
+            self.fin_degat = actuel
+
+    def barre_vie(self, surface):
+            pygame.draw.rect(surface, (240, 14, 14), [self.rect.x + 50, self.rect.y -20, self.max_vie, 10])
+            pygame.draw.rect(surface, (45, 212, 21), [self.rect.x + 50, self.rect.y -20, self.vie, 10])
+
+    def mouvements_droite(self):
+        if not self.game.collision(self,self.game.all_mechant):
+              self.rect.x += self.deplacement
+              self.image = self.image_d
+
+    def mouvements_gauche(self):
+            self.rect.x -= self.deplacement
+            self.image = self.image_g
+        
 
 
 class Mechant(pygame.sprite.Sprite):
@@ -176,4 +204,5 @@ def lancer_jeu():
 
 
     pygame.quit()
+
 

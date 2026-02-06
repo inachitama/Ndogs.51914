@@ -1,3 +1,51 @@
+# ========== METTRE UN FOND ========== 
+    def background(image):
+        size = pygame.transform.scale(image, (1500, 800))
+        fond.blit(size, (0, 0))
+    image = pygame.image.load("fond_ecran_1.png")
+
+# ========== FONCTION POUR AFFICHER TEXTE ==========
+def draw_text(text, font, col, text_x, text_y):
+    img = font.render(text, True, col)
+    fond.blit(img, (text_x, text_y))
+
+# ========== POLICE ET TAILLE TEXTE ==========
+    text_font = pygame.font.Font(None, 28)
+
+        background(image)
+
+# ========== AFFICHE TEXTES ==========
+        draw_text("Click on the 'Left' arrow to move to the left.", text_font, (255, 255, 255), 10, 750)
+        draw_text("Click on the 'Right' arrow to move to the right.", text_font, (255, 255, 255), 1065, 750)
+
+# ========== AFFICHE TEXTE QUAND COLISION ==========
+         draw_text("Click on the 'Space' bar to defeat the poop.", text_font, (255, 255, 255), 500, 200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #============== DISPLAY TEXT WHEN COLISION ============== V
 import pygame
 

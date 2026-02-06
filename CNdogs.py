@@ -100,54 +100,60 @@ pygame.display.set_caption("Ndogs.51914")
 fond = pygame.display.set_mode((1500, 800))
 game = Game()
 font = pygame.font.SysFont("arial",30)
+game_over_font = pygame.font.SysFont("arial", 100, bold=True)
 
 #boucle de jeu 
+
 running = True
 while running:
-    fond.fill((0,0,0))
-    texte = font.render(f"KILL : {game.kill} /5" , True , (255,255,255))
-    fond.blit(texte,(20,20))
-    
-    
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            game.touche[event.key] = True
-            if event.key == pygame.K_SPACE:
-                game.espace_appuye = True
-        if event.type == pygame.KEYUP:
-            game.touche[event.key] = False
- 
+        fond.fill((0, 0, 0))
+        texte = font.render(f"KILL : {game.kill} /5", True, (255, 255, 255))
+        fond.blit(texte, (20, 20))
 
-    fond.blit(game.joueur.image, game.joueur.rect)
-    game.all_mechant.draw(fond)
-    game.joueur.barre_vie(fond)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                game.touche[event.key] = True
+                if event.key == pygame.K_SPACE:
+                    game.espace_appuye = True
+            if event.type == pygame.KEYUP:
+                game.touche[event.key] = False
+                
+                
+        if not game_over:
+            fond.blit(game.joueur.image, game.joueur.rect)
+            game.all_mechant.draw(fond)
+            game.joueur.barre_vie(fond)
 
-    for mechant in game.all_mechant:
+            for mechant in game.all_mechant:
+                mechant.barre_vie(fond)
+                if game.joueur.rect.colliderect(mechant.rect):
+                    if game.touche.get(pygame.K_SPACE):
+                        mechant.degats(1)
+                    else:
+                        game.joueur.degat(10)
 
-        mechant.barre_vie(fond)
-
-        if game.joueur.rect.colliderect(mechant.rect):
-
-            if game.touche.get(pygame.K_SPACE):
-                mechant.degats(1)
-                if mechant.vie <= 0:
-                    mechant.vie < mechant.max_vie
-                    mechant.degats(5)
-            else :
-                game.joueur.degat(5)
-
-
-    # touche fleche
-    if game.touche.get(pygame.K_RIGHT):
-        game.joueur.mouvements_droite()
-    if game.touche.get(pygame.K_LEFT):
-        game.joueur.mouvements_gauche()
+            if game.touche.get(pygame.K_RIGHT):
+                game.joueur.mouvements_droite()
+            if game.touche.get(pygame.K_LEFT):
+                game.joueur.mouvements_gauche()
 
 
+            if game.joueur.vie <= 0:
+                game_over = True
+                game_over_start_time = pygame.time.get_ticks()  
 
-    pygame.display.flip()
-    
-    
-pygame.quit()
+        else:
+            
+            game_over_text = game_over_font.render("GAME OVER", True, (255, 0, 0))
+            rect = game_over_text.get_rect(center=(750, 400))
+            fond.blit(game_over_text, rect)
+
+            
+            if pygame.time.get_ticks() - game_over_start_time > 3000:
+                running = False
+
+        pygame.display.flip()
+
+    pygame.quit()

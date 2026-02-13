@@ -35,7 +35,7 @@ class Joueur(pygame.sprite.Sprite):
         self.vie = 100
         self.max_vie = 100
         self.attack = 10
-        self.deplacement = 2
+        self.deplacement = 3
         self.image_d = pygame.image.load('chien_d.jpg')
         self.image_d = pygame.transform.scale(self.image_d,(210,210))
         self.image_g = pygame.image.load('chien_g.jpg')
@@ -195,4 +195,5 @@ def lancer_jeu():
 
 
     pygame.quit()
+
 

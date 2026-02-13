@@ -2,7 +2,6 @@ import pygame
 import sys
 from main import lancer_jeu
 
-
 pygame.init()
 
 #  FENÊTRE 
@@ -68,6 +67,10 @@ M_btn = Button("Marron", 600, 550)
 Be_btn = Button ("Beige", 900, 550)
 Menu_btn = Button ("MENU", 600, 650)
 
+# OPTIONS - EASTER EGG !!!!!!! (A MODIF !!!!)
+
+
+
 # ================= DESSINS =================
 
 def draw_menu():
@@ -90,6 +93,15 @@ def draw_options():
 def draw_skin():
     screen.fill((35, 0, 50))
     title = title_font.render("Skin", True, (220, 180, 80))
+    screen.blit(title, title.get_rect(center=(WIDTH // 2, 150)))
+    R_btn.draw()
+    M_btn.draw()
+    Be_btn.draw()
+    Menu_btn.draw()
+    
+def draw_easteregg():
+    screen.fill((35, 0, 50))
+    title = title_font.render("Easter Egg", True, (220, 180, 80))
     screen.blit(title, title.get_rect(center=(WIDTH // 2, 150)))
     R_btn.draw()
     M_btn.draw()
@@ -160,6 +172,14 @@ while running:
                 state = "menu"
 
         # OPTIONS - SKIN
+        elif state == "options":
+            if Skin_btn.clicked(event):
+                state = "Skin"
+                
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                state = "options"
+                
+         # OPTIONS - EASTER EGG
         elif state == "options":
             if Skin_btn.clicked(event):
                 state = "Skin"

@@ -66,26 +66,7 @@ class Joueur(pygame.sprite.Sprite):
             self.rect.x -= self.deplacement
             self.image = self.image_g
 
-    def degat(self,montant):
-        actuel = pygame.time.get_ticks()
-        if actuel - self.fin_degat >= 1000 :
-            self.vie -= montant
-            self.fin_degat = actuel
-
-    def barre_vie(self, surface):
-            pygame.draw.rect(surface, (240, 14, 14), [self.rect.x + 50, self.rect.y -20, self.max_vie, 10])
-            pygame.draw.rect(surface, (45, 212, 21), [self.rect.x + 50, self.rect.y -20, self.vie, 10])
-
-    def mouvements_droite(self):
-        if not self.game.collision(self,self.game.all_mechant):
-              self.rect.x += self.deplacement
-              self.image = self.image_d
-
-    def mouvements_gauche(self):
-            self.rect.x -= self.deplacement
-            self.image = self.image_g
-        
-
+   
 
 class Mechant(pygame.sprite.Sprite):
     def __init__(self,game):
@@ -429,6 +410,7 @@ def lancer_jeu():
 
 
     pygame.quit()
+
 
 
 

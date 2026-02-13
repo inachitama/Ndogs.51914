@@ -63,6 +63,7 @@ class Joueur(pygame.sprite.Sprite):
               self.image = self.image_d
 
     def mouvements_gauche(self):
+        if not self.game.collision(self,self.game.all_mechant):
             self.rect.x -= self.deplacement
             self.image = self.image_g
 
@@ -194,3 +195,4 @@ def lancer_jeu():
 
 
     pygame.quit()
+
